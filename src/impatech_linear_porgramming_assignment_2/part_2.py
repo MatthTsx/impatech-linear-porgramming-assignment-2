@@ -1,72 +1,71 @@
-import matplotlib.image as mpimg
-import numpy as np
+from PIL import Image
 from .part_1_2 import getPreprocessedImage
 
-class Grafo:
-    def __init__(self, tam):
-        self.tam = tam
-        self.lista = {i: [] for i in range(tam**2)} # Lista de adjacência do grafo
-        self.arestas = [] # Arestas na forma (id_no(u), id_no(v))
-        self.coords = [None] * (tam ** 2)
+_dims = None
 
-    def id_no(self, i, j):
-        return(i * self.tam + j)
+class EncoderID:
+    @staticmethod
+    def set(dim: tuple):
+        global _dims
+        _dims = dim
+    
+    @staticmethod
+    def encode(i: int, j: int) -> int:
+        if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+        return i*_dims[1] + j
+    
+    @staticmethod
+    def decode(id: int) -> tuple:
+        if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+        return (id // _dims[1], id % _dims[1])
 
-    def add_aresta(self, id_1, id_2):
-        self.lista[id_1].append(id_2)
-        self.lista[id_2].append(id_1)
-        self.arestas.append((id_1, id_2))
+def checkOverflow(i: int, j: int) -> bool:
+    if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+    return not (0 <= i < _dims[0] and 0 <= j < _dims[1])
 
-    def construir(self, matriz):
-        for i in range(self.tam):
-            for j in range(self.tam):
-                k = self.id_no(i, j)
 
-                # Posições na matriz e na imagem 41x41 original
-                lin = 2 * i + 1
-                col = 2 * j + 1
-                self.coords[k] = coords_originais(lin, col)
 
-                # Varredura para baixo e direita
-                if j < self.tam - 1: # Verificação horizontal
-                    if matriz[lin][col + 1] == 1:
-                        viz_id = self.id_no(i, j + 1)
-                        self.add_aresta(k, viz_id)
-                
-                if i < self.tam - 1: # Verificação vertical
-                    if matriz[lin + 1][col] == 1:
-                        viz_id = self.id_no(i + 1, j)
-                        self.add_aresta(k, viz_id)
+class Graph:
+    def __init__(self, dim: tuple):
+        """
+            dim: (rows, cols) of the graph
+            sz: maximum number of vertices in the graph
+        """
+        self.dim = dim
+        self.sz = dim[0] * dim[1]
+        
+        self.edges = []
+        self.adj_list: dict[int, list[int]] = {}
 
-tam = 20
+    def build(self, binary_matrix: list):
+        for i in range(self.dim[0]):
+            for j in range(self.dim[1]):
+                if binary_matrix[i][j] == 0: continue
+                _id = EncoderID.encode(i, j)
 
-img_nome = "labirinto.jpeg"
-img_path = f"assets/{img_nome}"
-matriz_recebida = getPreprocessedImage(img_nome)
-img_original = mpimg.imread(img_path)
+                for di, dj in [(1, 0), (0, 1)]:
+                    ni, nj = i + di, j + dj
 
-if img_original.ndim == 3:
-    img_gray = img_original.mean(axis=2)
-else:
-    img_gray = img_original
+                    if not checkOverflow(ni, nj) and binary_matrix[ni][nj] == 1:
+                        neighbor_id = EncoderID.encode(ni, nj)
+                        self.adj_list.setdefault(_id, []).append(neighbor_id)
+                        self.adj_list.setdefault(neighbor_id, []).append(_id)
+                        self.edges.append((_id, neighbor_id))
 
-pixels_pretos = np.where(img_gray < 0.5)
-topo, base = pixels_pretos[0].min(), pixels_pretos[0].max()
-esq, direita = pixels_pretos[1].min(), pixels_pretos[1].max()
 
-lins = len(matriz_recebida)
-cols = len(matriz_recebida[0])
-escala_y = (base - topo) / lins
-escala_x = (direita - esq) / cols
+if __name__ == "__main__":
+    img_nome = "labirinto.jpeg"
+    img_path = f"assets/{img_nome}"
 
-def coords_originais(lin, col):
-    y = topo + (lin * escala_y) + (escala_y / 2)
-    x = esq + (col * escala_x) + (escala_x / 2)
-    return x, y
+    matriz_recebida = getPreprocessedImage(img_nome)
+    img_original = Image.open(img_path).convert('L')
 
-grafo = Grafo(tam)
-grafo.construir(matriz_recebida)
+    EncoderID.set((len(matriz_recebida), len(matriz_recebida[0])))
 
-print(f"Número de vértices: {len(grafo.lista)} \nNúmero de arestas: {len(grafo.arestas)}")
-# print(f"Conjunto de arestas: {grafo.arestas}")
-# print(f"Lista de adjacência: {grafo.lista}")
+    grafo = Graph(_dims)
+    grafo.build(matriz_recebida)
+
+    print(_dims)
+    print(f"Número de vértices: {len(grafo.adj_list)} \nNúmero de arestas: {len(grafo.edges)}")
+    # print(f"Conjunto de arestas: {grafo.edges}")
+    # print(f"Lista de adjacência: {grafo.adj_list}")

@@ -77,7 +77,7 @@ def getBinaryImage(path: str, crop: bool = True) -> list:
     if crop: return _cropBinaryImage(_BinaryImage(img))
     return _BinaryImage(img)
 
-def _print_test(bn: list):
+def _print_test(bn: list, show: bool = True):
     """
         Print the binary image matrix bn
     """
@@ -89,10 +89,18 @@ def _print_test(bn: list):
             x = bn[i][j]*255
             img.putpixel((j,i), (x,x,x))
     
-    img.show()
+    if show: img.show()
+    return img
+
+def getSizedImage(bimg: list, sizes: tuple):
+    img = _print_test(bimg, False)
+    
+    return img.resize(sizes, resample=Image.Resampling.NEAREST)
+
+
 
 if __name__ == "__main__":
     bn = getBinaryImage("labirinto.jpeg")
     _print_test(bn)
-    
+    getSizedImage(bn, (740,740)).show()
     pass

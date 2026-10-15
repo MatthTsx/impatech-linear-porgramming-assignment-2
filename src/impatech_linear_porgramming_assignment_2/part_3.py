@@ -13,13 +13,13 @@ for u, v in grafo.arestas:
     ax.plot([x_u, x_v], [y_u, y_v], color='purple', linewidth=2, zorder=1)
 
 # Vértices do grafo
-for u in range(grafo.tam ** 2):
+for u in range(grafo.sz):
     x, y = grafo.coords[u]
     ax.scatter(x, y, color='blue', s=15, zorder=2)
 
 # Vértices de entrada e saída
 x_ent, y_ent = grafo.coords[0]
-x_sai, y_sai = grafo.coords[grafo.tam ** 2 - 1]
+x_sai, y_sai = grafo.coords[grafo.sz - 1]
 ax.scatter(x_ent, y_ent, color='green', s=67, label='Entrada', zorder=3)
 ax.scatter(x_sai, y_sai, color='red', s=67, label='Saída', zorder=3)
 
