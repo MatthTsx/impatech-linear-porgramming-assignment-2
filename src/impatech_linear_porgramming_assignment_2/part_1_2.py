@@ -86,3 +86,4 @@ def getPreprocessedImage(path: str):
 if __name__ == "__main__":
     cmp = getPreprocessedImage("labirinto.jpeg")
     _print_test(cmp)
+    

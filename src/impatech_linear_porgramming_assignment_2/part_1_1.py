@@ -92,15 +92,17 @@ def _print_test(bn: list, show: bool = True):
     if show: img.show()
     return img
 
-def getSizedImage(bimg: list, sizes: tuple):
+def getScaledImage(bimg: list, multipliyer: int):
     img = _print_test(bimg, False)
+    dim = img.size
+    print(dim)
     
-    return img.resize(sizes, resample=Image.Resampling.NEAREST)
+    return img.resize((dim[0]*multipliyer, dim[1]*multipliyer), resample=Image.Resampling.NEAREST)
 
 
 
 if __name__ == "__main__":
     bn = getBinaryImage("labirinto.jpeg")
     _print_test(bn)
-    getSizedImage(bn, (740,740)).show()
+    getScaledImage(bn, 2).show()
     pass
