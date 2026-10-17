@@ -6,3 +6,6 @@
 - save the obtained images into /assets/processed, which can be done easily with img.save(), img being a Image.Image from Pillow
 - Do the Part 4
 - review the code for logical flaws
+
+# how to run (without uv):
+`python -m lib.part_x`

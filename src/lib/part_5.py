@@ -30,8 +30,12 @@ def dijkstra(graph: Graph, start: int, weight: int = 1):
 
 
 
-if __name__ == "__main__":
+def main():
     graph = getGraph(getPreprocessedImage("labirinto.jpeg"))
     dists, parents = dijkstra(graph, graph.start)
     print(dists)
     print(parents)
+
+
+if __name__ == "__main__":
+    main()

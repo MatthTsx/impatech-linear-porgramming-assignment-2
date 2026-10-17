@@ -16,7 +16,11 @@ def getScaledImage(multipliyer: int):
         raise ValueError("Binary Matrix not loaded. Please call getPreprocessedImage(img_name) first.")
     return _getScaledImage(_bn, multipliyer)
 
-if __name__ == "__main__":
+def main():
     img_nome = "labirinto.jpeg"
-    _bn = getPreprocessedImage(img_nome)
+    getPreprocessedImage(img_nome)
     getScaledImage(40).show()
+
+
+if __name__ == "__main__":
+    main()

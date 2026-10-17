@@ -59,7 +59,11 @@ def drawGraph(scale: int = 40, show: bool = True, graph: Graph = None, lineOffPl
     if show: img.show()
     return img
 
-if __name__ == "__main__":
+def main():
     img_name = "labirinto.jpeg"
     _ = getGraph(getPreprocessedImage(img_name))
     drawGraph(scale=50, show=True, lineOffPlace=10, lineThick=2, circleRadius=10)
+
+
+if __name__ == "__main__":
+    main()

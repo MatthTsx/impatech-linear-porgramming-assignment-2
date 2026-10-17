@@ -105,7 +105,7 @@ def getGraph(bn: list = None):
     return _graph
 
 
-if __name__ == "__main__":
+def main():
     img_nome = "labirinto.jpeg"
     img_path = f"assets/{img_nome}"
 
@@ -118,3 +118,7 @@ if __name__ == "__main__":
 
     print(_dims)
     print(f"Número de vértices: {len(grafo.adj_list)} \nNúmero de arestas: {len(grafo.edges)}")
+
+
+if __name__ == "__main__":
+    main()

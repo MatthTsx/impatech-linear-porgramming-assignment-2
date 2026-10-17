@@ -83,7 +83,10 @@ def getPreprocessedImage(path: str):
     
     return _compress(bimg, _getMedian(bimg))
 
-if __name__ == "__main__":
+def main():
     cmp = getPreprocessedImage("labirinto.jpeg")
     _print_test(cmp)
-    
+
+
+if __name__ == "__main__":
+    main()

@@ -101,8 +101,11 @@ def getScaledImage(bimg: list, multiplier: int):
 
 
 
-if __name__ == "__main__":
+def main():
     bn = getBinaryImage("labirinto.jpeg")
     _print_test(bn)
     getScaledImage(bn, 2).show()
-    pass
+
+
+if __name__ == "__main__":
+    main()

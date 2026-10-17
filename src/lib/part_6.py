@@ -11,7 +11,7 @@ def reconstruir_caminho(s: int, t: int, parents: list[int]) -> list[int]:
         return reconstruir_caminho(s, parents[t], parents) + [t]
     
 
-if __name__ == "__main__":
+def main():
     graph = getGraph(getPreprocessedImage("labirinto.jpeg"))
     dists, parents = dijkstra(graph, graph.start)
 
@@ -23,3 +23,7 @@ if __name__ == "__main__":
     print("Number of moviments: ", len(path)-1)
     print("Number of vertices: ", len(path))
     print("Computation time of the path: dijkstra O(E log V), but initiation of parents is O(graph.sz) which in this case is 41*41 = 1681 which is bigger than E log V")
+
+
+if __name__ == "__main__":
+    main()

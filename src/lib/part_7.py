@@ -21,7 +21,7 @@ def DrawPath(path: list[int], scale: int = 40, show: bool = True, graph: Graph =
     return img
 
 
-if __name__ == "__main__":
+def main():
     from .part_2 import getGraph
     from .part_1 import getPreprocessedImage
     from .part_5 import dijkstra
@@ -33,3 +33,7 @@ if __name__ == "__main__":
     path = reconstruir_caminho(graph.start, graph.end, parents)
 
     DrawPath(path, scale=50, show=True, lineOffPlace=10, lineThick=2, circleRadius=10)
+
+
+if __name__ == "__main__":
+    main()
