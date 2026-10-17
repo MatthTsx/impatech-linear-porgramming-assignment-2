@@ -4,14 +4,11 @@ import heapq
 
 
 def dijkstra(graph: Graph, start: int, weight: int = 1):
-    priority_queue = []
+    priority_queue = [(0, start, start)]
     qntVertices = graph.sz
     visited = [False] * (qntVertices + 3) # + 3 to prevent off by one errors
     parents = [None] * (qntVertices + 3)
     dists = [float('inf')] * (qntVertices + 3)
-
-    for v in graph.adj_list[start]:
-        priority_queue.append((weight, v, start))
     
     while len(priority_queue) > 0:
         c_weight, c_node, c_parent = heapq.heappop(priority_queue)
