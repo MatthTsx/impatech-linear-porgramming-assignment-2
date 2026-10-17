@@ -5,7 +5,7 @@ from .part_1 import getPreprocessedImage
 
 # English translation to my fellas: rebuild path
 def reconstruir_caminho(s: int, t: int, parents: list[int]) -> list[int]:
-    if t is s:
+    if t == s:
         return [s]
     else:
         return reconstruir_caminho(s, parents[t], parents) + [t]

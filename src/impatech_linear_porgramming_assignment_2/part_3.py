@@ -7,7 +7,7 @@ def _getCoords(id: int, scale) -> tuple:
     i, j = EncoderID.decode(id)
     return (round(j * scale + scale/2), round(i * scale + scale/2))
 
-def _drawLine(img: Image.Image, a: tuple, b: tuple, thick: int, color:tuple = (255, 0, 0), offplace: int = 0):
+def _drawLine(img: Image.Image, a: tuple, b: tuple, thick: int, color: tuple = (255, 0, 0), offplace: int = 0):
     """
         Draw a thick line between point A and point B
     """

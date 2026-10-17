@@ -10,10 +10,12 @@ def DrawPath(path: list[int], scale: int = 40, show: bool = True, graph: Graph =
         _drawLine(img, _getCoords(path[i-1], scale), _getCoords(path[i], scale), lineThick, (255, 0, 0), offplace=lineOffPlace)
         
     for i in path:
-        if i == path[0] or i == path[-1]:
+        if i == path[0]:
             _drawCircle(img, _getCoords(i, scale), circleRadius, (0, 255, 0))
-        else:
+        elif i == path[-1]:
             _drawCircle(img, _getCoords(i, scale), circleRadius, (0, 0, 255))
+        else:
+            _drawCircle(img, _getCoords(i, scale), circleRadius, (255, 0, 0))
     
     if show: img.show()
     return img

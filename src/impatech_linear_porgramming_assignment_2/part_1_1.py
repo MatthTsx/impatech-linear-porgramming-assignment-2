@@ -92,12 +92,12 @@ def _print_test(bn: list, show: bool = True):
     if show: img.show()
     return img
 
-def getScaledImage(bimg: list, multipliyer: int):
+def getScaledImage(bimg: list, multiplier: int):
     img = _print_test(bimg, False)
     dim = img.size
     print(dim)
     
-    return img.resize((dim[0]*multipliyer, dim[1]*multipliyer), resample=Image.Resampling.NEAREST)
+    return img.resize((dim[0]*multiplier, dim[1]*multiplier), resample=Image.Resampling.NEAREST)
 
 
 

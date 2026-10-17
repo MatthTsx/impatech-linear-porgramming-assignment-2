@@ -12,20 +12,20 @@ class EncoderID:
     
     @staticmethod
     def encode(i: int, j: int) -> int:
-        if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+        if _dims is None: raise ValueError("dims is not set. Please set with EncoderID.set(dim) before using this method.")
         return i*_dims[1] + j
     
     @staticmethod
     def decode(id: int) -> tuple:
-        if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+        if _dims is None: raise ValueError("dims is not set. Please set with EncoderID.set(dim) before using this method.")
         return (id // _dims[1], id % _dims[1])
     
     def getDim() -> tuple:
-        if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+        if _dims is None: raise ValueError("dims is not set. Please set with EncoderID.set(dim) before using this method.")
         return _dims
 
 def checkOverflow(i: int, j: int) -> bool:
-    if _dims is None: raise ValueError("dims is not set. Please set with EnconderID.set(dim) before using this method.")
+    if _dims is None: raise ValueError("dims is not set. Please set with EncoderID.set(dim) before using this method.")
     return not (0 <= i < _dims[0] and 0 <= j < _dims[1])
 
 
@@ -118,5 +118,3 @@ if __name__ == "__main__":
 
     print(_dims)
     print(f"Número de vértices: {len(grafo.adj_list)} \nNúmero de arestas: {len(grafo.edges)}")
-    # print(f"Conjunto de arestas: {grafo.edges}")
-    # print(f"Lista de adjacência: {grafo.adj_list}")
