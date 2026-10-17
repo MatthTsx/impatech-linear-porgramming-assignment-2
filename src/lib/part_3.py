@@ -52,10 +52,12 @@ def drawGraph(scale: int = 40, show: bool = True, graph: Graph = None, lineOffPl
     for v in graph.adj_list.keys():
         x, y = _getCoords(v, scale)
         
-        if v == graph.start or v == graph.end:
+        if v == graph.start:
             _drawCircle(img, (x, y), circleRadius, (0, 255, 0))
-        else:
+        elif v == graph.end:
             _drawCircle(img, (x, y), circleRadius, (0, 0, 255))
+        else:
+            _drawCircle(img, (x, y), circleRadius, (255, 0, 0))
     if show: img.show()
     return img
 
