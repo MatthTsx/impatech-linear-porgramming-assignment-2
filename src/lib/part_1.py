@@ -16,9 +16,19 @@ def getScaledImage(multipliyer: int):
         raise ValueError("Binary Matrix not loaded. Please call getPreprocessedImage(img_name) first.")
     return _getScaledImage(_bn, multipliyer)
 
+def makeBinImage(path: str, image):
+    with open(path, "w") as file:
+        for i in range(len(image)):
+            for j in range(len(image[0])):
+                file.write(str(image[i][j]) + " ")
+            file.write("\n")
+
+
+
 def main():
     img_nome = "labirinto.jpeg"
     getPreprocessedImage(img_nome)
+    makeBinImage("assets/labirinto_bin.txt", _bn)
     getScaledImage(40).show()
 
 
