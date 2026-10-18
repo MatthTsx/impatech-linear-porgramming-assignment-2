@@ -47,7 +47,7 @@ def drawGraph(scale: int = 40, show: bool = True, graph: Graph = None, lineOffPl
         x1, y1 = _getCoords(a, scale)
         x2, y2 = _getCoords(b, scale)
 
-        _drawLine(img, (x1, y1), (x2, y2), lineThick, (255, 0, 0), offplace=lineOffPlace)
+        _drawLine(img, (x1, y1), (x2, y2), lineThick, (255, 127, 0), offplace=lineOffPlace)
     
     for v in graph.adj_list.keys():
         x, y = _getCoords(v, scale)
@@ -57,7 +57,7 @@ def drawGraph(scale: int = 40, show: bool = True, graph: Graph = None, lineOffPl
         elif v == graph.end:
             _drawCircle(img, (x, y), circleRadius, (0, 0, 255))
         else:
-            _drawCircle(img, (x, y), circleRadius, (255, 0, 0))
+            _drawCircle(img, (x, y), circleRadius, (255, 127, 0))
     if show: img.show()
     return img
 

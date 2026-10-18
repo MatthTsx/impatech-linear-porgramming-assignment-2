@@ -1,5 +1,5 @@
 from .part_1 import getScaledImage
-from .part_2 import Graph, EncoderID
+from .part_2 import Graph, EncoderID, getGraph
 from .part_3 import _drawLine, _drawCircle, _getCoords
 from PIL import Image
 
@@ -20,6 +20,31 @@ def DrawPath(path: list[int], scale: int = 40, show: bool = True, graph: Graph =
     if show: img.show()
     return img
 
+def DrawComb(path: list[int], scale: int = 40, show: bool = True, graph: Graph = None, lineOffPlace: int = 0, lineThick: int = 2, circleRadius: int = 10):
+    if graph is None: graph = getGraph()
+    img: Image.Image = getScaledImage(scale)
+
+    for a,b in graph.edges:
+            x1, y1 = _getCoords(a, scale)
+            x2, y2 = _getCoords(b, scale)
+    
+            _drawLine(img, (x1, y1), (x2, y2), lineThick, (255, 127, 0), offplace=lineOffPlace)
+
+    for v in graph.adj_list.keys():
+            x, y = _getCoords(v, scale)
+            _drawCircle(img, (x, y), circleRadius, (255, 127, 0))
+
+    for i in range(1, len(path)):
+            _drawLine(img, _getCoords(path[i-1], scale), _getCoords(path[i], scale), lineThick, (255, 0, 0), offplace=lineOffPlace)
+
+    for i in path:
+        _drawCircle(img, _getCoords(i, scale), circleRadius + 2, (255, 0, 0))
+
+    _drawCircle(img, _getCoords(graph.start, scale), circleRadius + 5, (0, 255, 0))
+    _drawCircle(img, _getCoords(graph.end, scale), circleRadius + 5, (0, 0, 255))
+    
+    if show: img.show()
+    return img
 
 def main():
     from .part_2 import getGraph
@@ -33,6 +58,8 @@ def main():
     path = reconstruir_caminho(graph.start, graph.end, parents)
 
     DrawPath(path, scale=50, show=True, lineOffPlace=10, lineThick=2, circleRadius=10)
+
+    DrawComb(path, scale=50, show=True, lineOffPlace=10, lineThick=2, circleRadius=10)
 
 
 if __name__ == "__main__":
