@@ -117,7 +117,8 @@ def main():
     grafo = getGraph(matriz_recebida)
 
     print(_dims)
-    print(f"Número de vértices: {len(grafo.adj_list)} \nNúmero de arestas: {len(grafo.edges)}")
+    print(f"Número de vértices (contando conexões): {len(grafo.adj_list)} \nNúmero de arestas (contando conexões): {len(grafo.edges)}")
+    print(f"\nNúmero de vértices-célula: {len(grafo.adj_list)//2} \nNúmero de arestas entre células: {(len(grafo.edges)-2)//2}")
 
 
 if __name__ == "__main__":
